@@ -1,5 +1,17 @@
 <?php
 
+if(!isset($_GET['dev']))
+  die();
+
+$dev = $_GET['dev'];
+
+if(preg_match("/[^a-zA-Z0-9._-]/", $dev))
+  die();
+
+if(!file_exists("dev/${dev}.rrd"))
+  die();
+
+
 $ts = "d";
 
 if(isset($_GET['d']))
@@ -12,8 +24,8 @@ else
   die();
 
 $dir = "/srv/http/temp-humid";
-$rrd = "$dir/temp-humid.rrd";
-$img = "$dir/img/$ts.png";
+$rrd = "$dir/dev/${dev}.rrd";
+$img = "$dir/img/${dev}.$ts.png";
 
 if(!file_exists($rrd))
   die();
@@ -40,9 +52,11 @@ else
 if(!$ret)
   print rrd_error();
 else {
-  header('Content-Type: image/png');
   $file = fopen($img, 'r');
-  fpassthru($file);
+  if($file !== false) {
+    header('Content-Type: image/png');
+    fpassthru($file);
+  }
 }
 
 ?>
