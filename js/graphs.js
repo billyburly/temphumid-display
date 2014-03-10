@@ -7,4 +7,10 @@ function refreshImages() {
 
 $(document).ready(function () {
     setInterval("refreshImages();", 300000);
+    
+    $("#dev-chooser").change(function() {
+	newDev = $(this).val();
+	if(newDev != "" && newDev != dev)
+	    window.location.assign("index.php?dev=" + newDev);
+    });
 });
