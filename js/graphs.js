@@ -1,8 +1,11 @@
 function refreshImages() {
+    if(dev == null || dev == "")
+	return;
+
     t = new Date();
-    $("#graph-day").attr("src", "getGraph.php?d&t=" + t);
-    $("#graph-week").attr("src", "getGraph.php?w&t=" + t);
-    $("#graph-month").attr("src", "getGraph.php?m&t=" + t);
+    $("#graph-day").attr("src", "getGraph.php?d&t=" + t + "&dev=" + dev);
+    $("#graph-week").attr("src", "getGraph.php?w&t=" + t + "&dev=" + dev);
+    $("#graph-month").attr("src", "getGraph.php?m&t=" + t + "&dev=" + dev);
 }
 
 $(document).ready(function () {
